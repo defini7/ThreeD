@@ -58,7 +58,7 @@ int main()
 	camera.fVerticalSpeed = 25.0f;
 	camera.fHorizontalSpeed = 0.1f;
 
-	if (!grass.LoadData("grass.png", true))
+	if (!grass.LoadData("gfx/grass.png", true))
 	{
 		std::cout << grass.GetErrMessage() << std::endl;
 		return false;
@@ -70,7 +70,7 @@ int main()
 		return false;
 	}
 
-	if (!cobble.LoadData("cobble.png", true))
+	if (!cobble.LoadData("gfx/cobble.png", true))
 	{
 		std::cout << cobble.GetErrMessage() << std::endl;
 		return false;
@@ -203,6 +203,7 @@ int main()
 					draw_cube(x, y, z);
 
 					glBindTexture(GL_TEXTURE_2D, cobble.GetId());
+
 					for (int i = -10; i < z; i++)
 						draw_cube(x, y, i);
 
