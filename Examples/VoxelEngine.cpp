@@ -19,7 +19,7 @@ int main()
 		return 1;
 	}
 
-	cWindow window(1280, 960, "Hello, World!", true);
+	cWindow window(1280, 960, "Voxel Engine", true);
 
 	if (!window.Construct())
 	{
@@ -27,21 +27,19 @@ int main()
 		return 1;
 	}
 
-	cTexture image_loader;
+	cTexture icon;
 	
-	if (image_loader.LoadData("icon.png"))
+	if (!icon.LoadData("gfx/icon.png"))
 	{
-		window.SetIcon(
-			image_loader.GetData(),
-			image_loader.GetWidth(),
-			image_loader.GetHeight()
-		);
-	}
-	else
-	{
-		std::cout << "Can't set icon" << std::endl;
+		std::cout << icon.GetErrMessage() << std::endl;
 		return 1;
 	}
+
+	window.SetIcon(
+		icon.GetData(),
+		icon.GetWidth(),
+		icon.GetHeight()
+	);
 
 	cThread thread;
 	cCamera camera;
@@ -197,21 +195,20 @@ int main()
 
 				float fDistance = (camera.vPos - vf3d(x, y, z)).length();
 
-				if (fDistance < 10.0f)
+				if (fDistance < 16.0f)
 				{
-					glBindTexture(GL_TEXTURE_2D, grass.GetId());
+					grass.Bind();
 					draw_cube(x, y, z);
+					grass.Unbind();
 
-					glBindTexture(GL_TEXTURE_2D, cobble.GetId());
+					cobble.Bind();
 
 					for (int i = -10; i < z; i++)
 						draw_cube(x, y, i);
 
-					glBindTexture(GL_TEXTURE_2D, 0);
+					cobble.Unbind();
 				}
 			}
-		
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glPopMatrix();
 
