@@ -27,13 +27,13 @@ void cCamera::Apply(cWindow& wnd, cThread& thrd)
 		float fAngle = -vRot.z / 180.0f * (float)M_PI;
 		float fSpeed = 0.0f;
 
-		if (thrd.GetKey(GLFW_KEY_SPACE).bHeld) vPos.z += 100.0f * thrd.GetDeltaTime();
-		if (thrd.GetKey(GLFW_KEY_LEFT_SHIFT).bHeld) vPos.z -= 100.0f * thrd.GetDeltaTime();
+		if (thrd.GetKey(GLFW_KEY_SPACE).bHeld) vPos.z += fVerticalSpeed * thrd.GetDeltaTime();
+		if (thrd.GetKey(GLFW_KEY_LEFT_SHIFT).bHeld) vPos.z -= fVerticalSpeed * thrd.GetDeltaTime();
 
-		if (thrd.GetKey(GLFW_KEY_W).bHeld) fSpeed = 1.1f;
-		if (thrd.GetKey(GLFW_KEY_S).bHeld) fSpeed = -1.1f;
-		if (thrd.GetKey(GLFW_KEY_A).bHeld) { fSpeed = 1.0f; fAngle -= (float)M_PI_2; }
-		if (thrd.GetKey(GLFW_KEY_D).bHeld) { fSpeed = 1.0f; fAngle += (float)M_PI_2; }
+		if (thrd.GetKey(GLFW_KEY_W).bHeld) fSpeed = fHorizontalSpeed;
+		if (thrd.GetKey(GLFW_KEY_S).bHeld) fSpeed = -fHorizontalSpeed;
+		if (thrd.GetKey(GLFW_KEY_A).bHeld) { fSpeed = fHorizontalSpeed; fAngle -= (float)M_PI_2; }
+		if (thrd.GetKey(GLFW_KEY_D).bHeld) { fSpeed = fHorizontalSpeed; fAngle += (float)M_PI_2; }
 
 		if (fSpeed != 0.0f)
 		{

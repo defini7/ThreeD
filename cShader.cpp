@@ -7,6 +7,11 @@ cShader::cShader(const std::string& vertex_shader, const std::string& fragment_s
 
 cShader::~cShader()
 {
+	auto it = m_umShaders.find(m_sName);
+
+	if (it != m_umShaders.end())
+		m_umShaders.erase(it);
+
 	glDeleteShader(m_nRendererID);
 }
 
@@ -42,14 +47,6 @@ void cShader::Disable()
 	}
 
 	m_umShaders.clear();
-}
-
-void cShader::Delete()
-{
-	auto it = m_umShaders.find(m_sName);
-	
-	if (it != m_umShaders.end())
-		m_umShaders.erase(it);
 }
 
 void cShader::Bind()
@@ -125,4 +122,46 @@ std::string cShader::ReadFile(const std::string& filename)
 	}
 
 	return std::string(std::istreambuf_iterator<char>(t), std::istreambuf_iterator<char>());
+}
+
+void cShader::UniformMatrix4f(const std::string& name, float* matrix, bool transpose)
+{
+	unsigned int loc = glGetUniformLocation(m_nRendererID, name.c_str());
+	glUniformMatrix4fv(loc, 1, (GLboolean)transpose, matrix);
+}
+
+void cShader::Uniform1i(const std::string& name, int x)
+{
+	unsigned int loc = glGetUniformLocation(m_nRendererID, name.c_str());
+	glUniform1i(loc, x);
+}
+
+void cShader::Uniform1f(const std::string& name, float x)
+{
+	unsigned int loc = glGetUniformLocation(m_nRendererID, name.c_str());
+	glUniform1f(loc, x);
+}
+
+void cShader::Uniform2i(const std::string& name, int x, int y)
+{
+	unsigned int loc = glGetUniformLocation(m_nRendererID, name.c_str());
+	glUniform2i(loc, x, y);
+}
+
+void cShader::Uniform2f(const std::string& name, float x, float y)
+{
+	unsigned int loc = glGetUniformLocation(m_nRendererID, name.c_str());
+	glUniform2f(loc, x, y);
+}
+
+void cShader::Uniform3i(const std::string& name, int x, int y, int z)
+{
+	unsigned int loc = glGetUniformLocation(m_nRendererID, name.c_str());
+	glUniform3i(loc, x, y, z);
+}
+
+void cShader::Uniform3f(const std::string& name, float x, float y, float z)
+{
+	unsigned int loc = glGetUniformLocation(m_nRendererID, name.c_str());
+	glUniform3f(loc, x, y, z);
 }

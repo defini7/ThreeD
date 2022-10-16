@@ -8,6 +8,7 @@ cTexture::cTexture()
 cTexture::~cTexture()
 {
 	stbi_image_free(m_cData);
+	glDeleteTextures(1, &m_nTextureId);
 }
 
 bool cTexture::LoadData(const std::string& filename, bool flip)

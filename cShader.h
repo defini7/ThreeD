@@ -28,7 +28,6 @@ public:
 	cShader* Get(const std::string& shader_name);
 	void Disable();
 
-	void Delete();
 	void Bind();
 	void Unbind();
 
@@ -37,6 +36,14 @@ public:
 	unsigned int GetId() const;
 
 	std::string ReadFile(const std::string& filename);
+
+	void UniformMatrix4f(const std::string& name, float* matrix, bool transpose = false);
+	void Uniform1i(const std::string& name, int x);
+	void Uniform1f(const std::string& name, float x);
+	void Uniform2i(const std::string& name, int x, int y);
+	void Uniform2f(const std::string& name, float x, float y);
+	void Uniform3i(const std::string& name, int x, int y, int z);
+	void Uniform3f(const std::string& name, float x, float y, float z);
 
 };
 

@@ -18,6 +18,9 @@ public:
 	vf3d vPos;
 	vf3d vRot;
 
+	float fVerticalSpeed = 50.0f;
+	float fHorizontalSpeed = 1.0f;
+
 public:
 	void Apply(cWindow& wnd, cThread& thrd);
 	void Rotate();
